@@ -2136,18 +2136,19 @@ body:not(.tt-boxed) .page-header-inner,
 	line-height: 1.2;
 	z-index: 9;
 	display: block !important;
-	height: 220px;
-	min-height: 220px;
-	max-height: 220px;
+	height: auto;
+	min-height: auto;
+	max-height: none;
 	overflow: visible;
 }
 
 /* Page Header CTA Button (Let's talk) */
 .ph-caption-btn-wrap {
-	margin-top: 35px;
+	margin-top: 28px;
 	position: relative;
 	z-index: 10;
 	display: inline-block;
+	will-change: transform;
 }
 
 .ph-cta-btn {
@@ -2203,8 +2204,15 @@ body:not(.tt-boxed) .page-header-inner,
 }
 
 @media (max-width: 1024px) {
+	.ph-caption-title {
+		font-size: clamp(32px, 5.5vw, 54px) !important;
+		line-height: 1.2 !important;
+		height: auto !important;
+		min-height: auto !important;
+		max-height: none !important;
+	}
 	.ph-caption-btn-wrap {
-		margin-top: 25px;
+		margin-top: 22px;
 	}
 	.ph-cta-btn {
 		padding: 12px 28px 12px 32px;
@@ -2218,8 +2226,15 @@ body:not(.tt-boxed) .page-header-inner,
 }
 
 @media (max-width: 768px) {
+	.ph-caption-title {
+		font-size: clamp(28px, 7.5vw, 38px) !important;
+		line-height: 1.2 !important;
+		height: auto !important;
+		min-height: auto !important;
+		max-height: none !important;
+	}
 	.ph-caption-btn-wrap {
-		margin-top: 20px;
+		margin-top: 18px;
 	}
 	.ph-cta-btn {
 		padding: 10px 24px 10px 28px;

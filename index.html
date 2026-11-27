@@ -1187,6 +1187,7 @@
 
 				var currentIndex = 0;
 				var $rotator = $(".ph-rotator-text");
+				var $btnWrap = $(".ph-caption-btn-wrap");
 				if (!$rotator.length) return;
 
 				function nextPhrase() {
@@ -1195,8 +1196,8 @@
 
 					// Smooth slide-up fade out
 					gsap.to($rotator, {
-						duration: 0.5,
-						y: -25,
+						duration: 0.45,
+						y: -20,
 						opacity: 0,
 						filter: "blur(4px)",
 						ease: "power2.in",
@@ -1204,9 +1205,9 @@
 							$rotator.html(next.text);
 							// Smooth slide-up fade in from below
 							gsap.fromTo($rotator, 
-								{ y: 30, opacity: 0, filter: "blur(4px)" },
+								{ y: 25, opacity: 0, filter: "blur(4px)" },
 								{ 
-									duration: 0.7, 
+									duration: 0.65, 
 									y: 0, 
 									opacity: 1, 
 									filter: "blur(0px)", 
