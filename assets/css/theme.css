@@ -2064,6 +2064,19 @@ body:not(.tt-boxed) .page-header-inner,
 	height: 100%;
 	object-fit: cover;
 	object-position: 75% 50%;
+	will-change: filter, transform;
+	animation: headerImageBlurLoop 8s ease-in-out infinite;
+}
+
+@keyframes headerImageBlurLoop {
+	0%, 100% {
+		filter: blur(0px);
+		transform: scale(1.02);
+	}
+	50% {
+		filter: blur(8px);
+		transform: scale(1.06);
+	}
 }
 
 #page-header.ph-bg-image .ph-video-wrap {
