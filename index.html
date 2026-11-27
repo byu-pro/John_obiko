@@ -441,6 +441,12 @@
 								<h1 class="ph-caption-title">
 									<div class="ph-appear"><span class="ph-rotator-text">I design <span class="text-highlight">logos</span>,<br class="br-desktop"><br class="br-mobile"> <span class="text-highlight">brand identities</span><br class="br-desktop"><br class="br-mobile"> and <span class="text-highlight">websites</span>.</span></div>
 								</h1>
+								<div class="ph-caption-btn-wrap ph-appear">
+									<a href="#tt-contact-section" class="ph-cta-btn magnetic-item" data-cursor="Talk">
+										<span class="ph-cta-btn-text" data-hover="Let's talk">Let's talk</span>
+										<span class="ph-cta-btn-icon"><i class="fas fa-arrow-right"></i></span>
+									</a>
+								</div>
 								<div class="ph-caption-title-ghost">
 									<div class="ph-appear">ondwariobiko</div>
 								</div>
@@ -978,7 +984,7 @@
 						============================ 
 						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
 						-->
-						<div class="tt-section padding-top-xlg-150">
+						<div class="tt-section padding-top-xlg-150" id="tt-contact-section">
 							<div class="tt-section-inner tt-wrap max-width-700">
 
 								<!-- Begin tt-Heading 
@@ -1287,6 +1293,28 @@
 						return false;
 					});
 				}
+
+				// Smooth scroll for Header CTA "Let's talk" button
+				$(".ph-cta-btn").on("click", function(e) {
+					var target = $("#tt-contact-section");
+					if (target.length) {
+						e.preventDefault();
+						if ($("body").hasClass("tt-smooth-scroll") && typeof Scrollbar !== "undefined") {
+							var scrollbar = Scrollbar.get(document.getElementById("scroll-container"));
+							if (scrollbar) {
+								var targetOffset = target[0].getBoundingClientRect().top + scrollbar.scrollTop;
+								if (typeof gsap !== "undefined" && typeof Expo !== "undefined") {
+									gsap.to(scrollbar, { duration: 1.5, scrollTo: { y: targetOffset, autoKill: true }, ease: Expo.easeInOut });
+								} else {
+									scrollbar.scrollTo(0, targetOffset, 1000);
+								}
+								return false;
+							}
+						}
+						$("html, body").animate({ scrollTop: target.offset().top }, 800);
+						return false;
+					}
+				});
 
 				function updateScrollUI(scrollY) {
 					// Sticky nav blur background
