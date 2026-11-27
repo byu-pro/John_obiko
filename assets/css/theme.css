@@ -2123,6 +2123,17 @@ body:not(.tt-boxed) .page-header-inner,
 ======================= */
 .ph-caption {
 	position: relative;
+	transform: translateY(-50px);
+}
+@media (max-width: 1024px) {
+	.ph-caption {
+		transform: translateY(-30px);
+	}
+}
+@media (max-width: 768px) {
+	.ph-caption {
+		transform: translateY(-20px);
+	}
 }
 
 /* page header caption title */
@@ -2146,7 +2157,7 @@ body:not(.tt-boxed) .page-header-inner,
 .ph-caption-btn-wrap {
 	position: absolute;
 	bottom: 2%;
-	left: 140px;
+	left: 4%;
 	z-index: 10;
 	display: inline-block;
 	margin: 0;
@@ -2154,11 +2165,12 @@ body:not(.tt-boxed) .page-header-inner,
 
 @media (min-width: 1025px) {
 	.ph-caption-btn-wrap {
-		bottom: 25px;
-		left: calc(4% + 130px);
+		bottom: 35px;
+		left: 4%;
 	}
 	.tt-scroll-down {
-		bottom: 25px !important;
+		bottom: 35px !important;
+		left: calc(4% + 180px) !important;
 	}
 }
 
