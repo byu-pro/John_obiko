@@ -2146,6 +2146,20 @@ body:not(.tt-boxed) .page-header-inner,
 	vertical-align: top;
 	will-change: transform, opacity, filter;
 }
+.ph-rotator-text .br-desktop {
+	display: block;
+}
+.ph-rotator-text .br-mobile {
+	display: none;
+}
+@media (max-width: 1024px) {
+	.ph-rotator-text .br-desktop {
+		display: none;
+	}
+	.ph-rotator-text .br-mobile {
+		display: block;
+	}
+}
 .text-highlight,
 .ph-rotator-text .text-highlight {
 	color: var(--tt-main-color);
