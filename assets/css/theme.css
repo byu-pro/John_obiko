@@ -830,7 +830,12 @@ body.is-firefox .tt-heading.tt-heading-stroke .tt-heading-title {
 	z-index: 999;
 	pointer-events: none;
 	background: transparent;
-	transition: background 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+	will-change: background, backdrop-filter, border-color, box-shadow;
+	transition: background 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+	            backdrop-filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+	            -webkit-backdrop-filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+	            border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+	            box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* header position fixed */
@@ -840,9 +845,9 @@ body.is-firefox .tt-heading.tt-heading-stroke .tt-heading-title {
 
 /* header scrolled blur glassmorphism effect */
 #tt-header.tt-header-scrolled {
-	background: rgba(10, 10, 10, 0.75);
-	backdrop-filter: blur(16px);
-	-webkit-backdrop-filter: blur(16px);
+	background: rgba(10, 10, 10, 0.78);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 	pointer-events: auto;
@@ -853,6 +858,13 @@ body.is-firefox .tt-heading.tt-heading-stroke .tt-heading-title {
 	padding-bottom: 18px;
 }
 
+@media (max-width: 1024px) {
+	#tt-header.tt-header-scrolled .tt-header-inner {
+		padding-top: 14px;
+		padding-bottom: 14px;
+	}
+}
+
 /* header inner */
 .tt-header-inner {
 	width: 100%;
@@ -860,11 +872,12 @@ body.is-firefox .tt-heading.tt-heading-stroke .tt-heading-title {
 	padding-top: 40px;
 	padding-bottom: 0px;
 	align-items: center;
-	transition: padding 0.4s ease;
+	transition: padding 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 @media (max-width: 1024px) {
 	.tt-header-inner {
-		padding-top: 20px;
+		padding-top: 18px;
+		padding-bottom: 0px;
 	}
 }
 
@@ -2178,15 +2191,18 @@ body:not(.tt-boxed) .page-header-inner,
 	opacity: 0;
 	visibility: hidden;
 	pointer-events: none;
-	transform: translateY(20px);
-	transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+	transform: translateY(20px) translateZ(0);
+	will-change: opacity, transform, visibility;
+	transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+	            visibility 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+	            transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .tt-scroll-to-top.is-visible {
 	opacity: 1;
 	visibility: visible;
 	pointer-events: auto;
-	transform: translateY(0);
+	transform: translateY(0) translateZ(0);
 }
 
 .tt-st-inner {

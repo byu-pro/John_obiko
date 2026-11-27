@@ -1242,11 +1242,31 @@
 					runGlassmorphismCycle();
 				}
 
-				// Scroll handler for Sticky Nav Blur and Back-to-Top Button
+				// High-performance scroll handler for Sticky Nav Blur and Back-to-Top Button
 				var $targetProject = $("#elegant-women-project");
 				var $backToTopBtn = $(".scroll-to-top");
 				var $header = $("#tt-header");
+				var headerScrolled = false;
 				var btnVisible = false;
+				var cachedTriggerPoint = 0;
+				var ticking = false;
+
+				function updateTriggerCoords() {
+					if ($targetProject.length) {
+						var rect = $targetProject[0].getBoundingClientRect();
+						var currentScroll = 0;
+						if ($("body").hasClass("tt-smooth-scroll") && typeof Scrollbar !== "undefined") {
+							var sb = Scrollbar.get(document.getElementById("scroll-container"));
+							if (sb) {
+								currentScroll = sb.scrollTop;
+							}
+						} else {
+							currentScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+						}
+						var targetBottom = rect.top + currentScroll + $targetProject[0].offsetHeight;
+						cachedTriggerPoint = targetBottom - (window.innerHeight * 0.3);
+					}
+				}
 
 				if ($backToTopBtn.length) {
 					$("body").append($backToTopBtn);
@@ -1268,46 +1288,76 @@
 					});
 				}
 
-				function handleScrollState(scrollY) {
+				function updateScrollUI(scrollY) {
 					// Sticky nav blur background
 					if (scrollY > 50) {
-						$header.addClass("tt-header-scrolled");
+						if (!headerScrolled) {
+							headerScrolled = true;
+							$header.addClass("tt-header-scrolled");
+						}
 					} else {
-						$header.removeClass("tt-header-scrolled");
+						if (headerScrolled) {
+							headerScrolled = false;
+							$header.removeClass("tt-header-scrolled");
+						}
 					}
 
 					// Back to Top button visibility
-					if ($targetProject.length && $backToTopBtn.length) {
-						var targetBottom = $targetProject.offset().top + $targetProject.outerHeight();
-						if ($("body").hasClass("tt-smooth-scroll") && typeof Scrollbar !== "undefined") {
-							var scrollbar = Scrollbar.get(document.getElementById("scroll-container"));
-							if (scrollbar) {
-								targetBottom += scrollbar.scrollTop;
+					if ($backToTopBtn.length && cachedTriggerPoint > 0) {
+						if (scrollY > cachedTriggerPoint) {
+							if (!btnVisible) {
+								btnVisible = true;
+								$backToTopBtn.addClass("is-visible");
 							}
-						}
-						var triggerPoint = targetBottom - ($(window).height() * 0.3);
-						if (scrollY > triggerPoint && !btnVisible) {
-							btnVisible = true;
-							$backToTopBtn.addClass("is-visible");
-						} else if (scrollY <= triggerPoint && btnVisible) {
-							btnVisible = false;
-							$backToTopBtn.removeClass("is-visible");
+						} else {
+							if (btnVisible) {
+								btnVisible = false;
+								$backToTopBtn.removeClass("is-visible");
+							}
 						}
 					}
 				}
+
+				function onScrollEvent(scrollY) {
+					if (!ticking) {
+						requestAnimationFrame(function() {
+							updateScrollUI(scrollY);
+							ticking = false;
+						});
+						ticking = true;
+					}
+				}
+
+				// Cache trigger coords on load, image load, and resize
+				updateTriggerCoords();
+				$(window).on("resize orientationchange", function() {
+					updateTriggerCoords();
+					var currentScroll = 0;
+					if ($("body").hasClass("tt-smooth-scroll") && typeof Scrollbar !== "undefined") {
+						var sb = Scrollbar.get(document.getElementById("scroll-container"));
+						if (sb) currentScroll = sb.scrollTop;
+					} else {
+						currentScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+					}
+					updateScrollUI(currentScroll);
+				});
+
+				// Re-update coordinates after images or webfonts settle
+				setTimeout(updateTriggerCoords, 1000);
+				setTimeout(updateTriggerCoords, 3000);
 
 				if ($("body").hasClass("tt-smooth-scroll") && typeof Scrollbar !== "undefined") {
 					var sb = Scrollbar.get(document.getElementById("scroll-container"));
 					if (sb) {
 						sb.addListener(function(status) {
-							handleScrollState(status.offset.y);
+							onScrollEvent(status.offset.y);
 						});
 					}
 				}
 				$(window).on("scroll", function() {
-					handleScrollState($(window).scrollTop());
+					onScrollEvent(window.pageYOffset || document.documentElement.scrollTop || 0);
 				});
-				handleScrollState(0);
+				updateScrollUI(0);
 			});
 		</script>
 
