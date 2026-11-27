@@ -438,8 +438,17 @@
 								<!-- <div class="ph-caption-subtitle">
 									<div class="ph-appear">Subtitle</div>
 								</div> -->
-								<h1 class="ph-caption-title">
-									<div class="ph-appear"><span class="ph-rotator-text">I design <span class="text-highlight">logos</span>,<br class="br-desktop"><br class="br-mobile"> <span class="text-highlight">brand identities</span><br class="br-desktop"><br class="br-mobile"> and <span class="text-highlight">websites</span>.</span></div>
+								<h1 class="ph-caption-title ph-reel-title">
+									<div class="ph-appear ph-reel-wrapper">
+										<span class="ph-reel-prefix">We build</span>
+										<span class="ph-reel-stage" id="hero-reel-stage">
+											<span class="ph-reel-item is-active">Brand</span>
+											<span class="ph-reel-item">Website</span>
+											<span class="ph-reel-item">Experiences</span>
+											<span class="ph-reel-item">Automations</span>
+											<span class="ph-reel-item">Growth</span>
+										</span>
+									</div>
 								</h1>
 								<!-- Desktop Page Header CTA Button (Let's talk) -->
 								<div class="ph-caption-btn-wrap ph-btn-desktop ph-appear">
@@ -1183,55 +1192,162 @@
 		<!-- Template master JS -->
 		<script src="assets/js/theme.js"></script>
 
-		<!-- Creative Headline Loop Transition -->
+		<!-- 3D Vertical Rolling Reel Hero Animation -->
 		<script>
 			$(window).on("load", function() {
-				var phrases = [
-					{ text: "I design <span class=\"text-highlight\">logos</span>,<br class=\"br-desktop\"><br class=\"br-mobile\"> <span class=\"text-highlight\">brand identities</span><br class=\"br-desktop\"><br class=\"br-mobile\"> and <span class=\"text-highlight\">websites</span>.", hold: 4500 },
-					{ text: "Never the same<br class=\"br-desktop\"><br class=\"br-mobile\"> <span class=\"text-highlight\">logo twice</span>.", hold: 3200 },
-					{ text: "<span class=\"text-highlight\">350+</span> projects.<br class=\"br-desktop\"> <span class=\"text-highlight\">10+</span> years.<br class=\"br-desktop\"><br class=\"br-mobile\"> <span class=\"text-highlight\">One</span> designer.", hold: 3200 },
-					{ text: "Your brand, <span class=\"text-highlight\">drawn</span><br class=\"br-desktop\"><br class=\"br-mobile\"> <span class=\"text-highlight\">from scratch</span>.<br class=\"br-desktop\"><br class=\"br-mobile\"> Not from a template.", hold: 3500 },
-					{ text: "Have a project<br class=\"br-desktop\"> in mind?<br class=\"br-desktop\"><br class=\"br-mobile\"> <span class=\"text-highlight\">Let's talk</span>.", hold: 3500 }
-				];
+				var reelConfig = {
+					words: ["Brand", "Website", "Experiences", "Automations", "Growth"],
+					holdTime: 2.3,      // seconds to hold on each active word
+					rollDuration: 0.72   // seconds for the 3D roll transition
+				};
 
+				var $stage = $("#hero-reel-stage");
+				if (!$stage.length) return;
+
+				var stageEl = $stage[0];
+				var words = reelConfig.words;
+				var items = [];
 				var currentIndex = 0;
-				var $rotator = $(".ph-rotator-text");
-				var $btnWrap = $(".ph-caption-btn-wrap");
-				if (!$rotator.length) return;
 
-				function nextPhrase() {
-					currentIndex = (currentIndex + 1) % phrases.length;
-					var next = phrases[currentIndex];
+				// Populate stage items
+				$stage.empty();
+				words.forEach(function(word) {
+					var el = document.createElement("span");
+					el.className = "ph-reel-item";
+					el.textContent = word;
+					stageEl.appendChild(el);
+					items.push({ el: el, word: word, width: 0 });
+				});
 
-					// Smooth slide-up fade out
-					gsap.to($rotator, {
-						duration: 0.45,
-						y: -20,
-						opacity: 0,
-						filter: "blur(4px)",
-						ease: "power2.in",
-						onComplete: function() {
-							$rotator.html(next.text);
-							// Smooth slide-up fade in from below
-							gsap.fromTo($rotator, 
-								{ y: 25, opacity: 0, filter: "blur(4px)" },
-								{ 
-									duration: 0.65, 
-									y: 0, 
-									opacity: 1, 
-									filter: "blur(0px)", 
-									ease: "power3.out",
-									onComplete: function() {
-										setTimeout(nextPhrase, next.hold);
-									}
-								}
-							);
+				// Accurate word width measurement for smooth width morphing
+				function measureWidths() {
+					items.forEach(function(item) {
+						var oldStyle = item.el.getAttribute("style");
+						item.el.style.transform = "none";
+						item.el.style.opacity = "1";
+						item.el.style.position = "static";
+						item.width = item.el.offsetWidth;
+						if (oldStyle) item.el.setAttribute("style", oldStyle);
+						else item.el.removeAttribute("style");
+					});
+				}
+				measureWidths();
+				$(window).on("resize", measureWidths);
+
+				// 3D slot calculations:
+				// offset 0  : Center active word (crisp, full opacity)
+				// offset -1 : Top slot (tilted backward, blurred, 35% opacity)
+				// offset +1 : Bottom slot (tilted forward, blurred, 35% opacity)
+				// offset <= -2 or >= 2 : Hidden out of 3D view
+				function getSlotProps(offset) {
+					if (offset === 0) {
+						return {
+							yPercent: 0,
+							z: 0,
+							rotateX: 0,
+							scale: 1,
+							opacity: 1,
+							filter: "blur(0px)",
+							pointerEvents: "auto"
+						};
+					} else if (offset === -1) {
+						return {
+							yPercent: -85,
+							z: -42,
+							rotateX: 34,
+							scale: 0.88,
+							opacity: 0.35,
+							filter: "blur(2px)",
+							pointerEvents: "none"
+						};
+					} else if (offset === 1) {
+						return {
+							yPercent: 85,
+							z: -42,
+							rotateX: -34,
+							scale: 0.88,
+							opacity: 0.35,
+							filter: "blur(2px)",
+							pointerEvents: "none"
+						};
+					} else if (offset < -1) {
+						return {
+							yPercent: -160,
+							z: -80,
+							rotateX: 60,
+							scale: 0.75,
+							opacity: 0,
+							filter: "blur(5px)",
+							pointerEvents: "none"
+						};
+					} else {
+						return {
+							yPercent: 160,
+							z: -80,
+							rotateX: -60,
+							scale: 0.75,
+							opacity: 0,
+							filter: "blur(5px)",
+							pointerEvents: "none"
+						};
+					}
+				}
+
+				function updateSlots(immediate) {
+					var total = words.length;
+					var activeItem = items[currentIndex];
+
+					// Smoothly adjust stage width to the active word
+					gsap.to(stageEl, {
+						width: activeItem.width + 6,
+						duration: immediate ? 0 : reelConfig.rollDuration,
+						ease: "power3.inOut"
+					});
+
+					items.forEach(function(item, i) {
+						var diff = (i - currentIndex) % total;
+						if (diff > total / 2) diff -= total;
+						if (diff < -total / 2) diff += total;
+
+						var props = getSlotProps(diff);
+						if (diff === 0) {
+							item.el.classList.add("is-active");
+						} else {
+							item.el.classList.remove("is-active");
+						}
+
+						if (immediate) {
+							gsap.set(item.el, props);
+						} else {
+							var tweenProps = {
+								yPercent: props.yPercent,
+								z: props.z,
+								rotateX: props.rotateX,
+								scale: props.scale,
+								opacity: props.opacity,
+								filter: props.filter,
+								duration: reelConfig.rollDuration,
+								ease: "power3.inOut"
+							};
+							gsap.to(item.el, tweenProps);
 						}
 					});
 				}
 
-				// Allow the page entrance animation to settle before starting the loop
-				setTimeout(nextPhrase, phrases[0].hold);
+				// Place words into initial 3D positions immediately
+				updateSlots(true);
+
+				// Infinite rolling reel loop
+				function scheduleNextRoll() {
+					gsap.delayedCall(reelConfig.holdTime, function() {
+						currentIndex = (currentIndex + 1) % words.length;
+						updateSlots(false);
+						scheduleNextRoll();
+					});
+				}
+
+				// Settle entrance animation before first roll
+				gsap.delayedCall(1.2, scheduleNextRoll);
 
 				// Silky smooth organic glassmorphism pulse (clear majority of the time, smooth sine curve)
 				var $frost = $(".ph-glassmorphic-frost");
