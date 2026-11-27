@@ -438,15 +438,20 @@
 								<!-- <div class="ph-caption-subtitle">
 									<div class="ph-appear">Subtitle</div>
 								</div> -->
-								<h1 class="ph-caption-title ph-reel-title">
-									<div class="ph-appear ph-reel-wrapper">
-										<span class="ph-reel-prefix">We build</span>
-										<span class="ph-reel-stage" id="hero-reel-stage">
-											<span class="ph-reel-item is-active">Brand</span>
-											<span class="ph-reel-item">Website</span>
-											<span class="ph-reel-item">Experiences</span>
-											<span class="ph-reel-item">Automations</span>
-											<span class="ph-reel-item">Growth</span>
+								<h1 class="ph-caption-title ph-spinner-title">
+									<div class="ph-appear ph-spinner-wrap">
+										<span class="ph-spinner-prefix">I design</span>
+										<span class="ph-spinner-window" id="hero-spinner-window">
+											<span class="ph-spinner-track" id="hero-spinner-track">
+												<span class="ph-spinner-item is-active">brand identity</span>
+												<span class="ph-spinner-item">logos that stand out</span>
+												<span class="ph-spinner-item">websites</span>
+												<span class="ph-spinner-item">design systems</span>
+												<span class="ph-spinner-item">packaging</span>
+												<span class="ph-spinner-item">visual concepts</span>
+												<span class="ph-spinner-item">digital experiences</span>
+												<span class="ph-spinner-item">brands that connect</span>
+											</span>
 										</span>
 									</div>
 								</h1>
@@ -1192,162 +1197,106 @@
 		<!-- Template master JS -->
 		<script src="assets/js/theme.js"></script>
 
-		<!-- 3D Vertical Rolling Reel Hero Animation -->
+		<!-- WebZoro-Style Kinetic Spinner Hero Header -->
 		<script>
 			$(window).on("load", function() {
-				var reelConfig = {
-					words: ["Brand", "Website", "Experiences", "Automations", "Growth"],
-					holdTime: 2.3,      // seconds to hold on each active word
-					rollDuration: 0.72   // seconds for the 3D roll transition
-				};
+				var services = [
+					"brand identity",
+					"logos that stand out",
+					"websites",
+					"design systems",
+					"packaging",
+					"visual concepts",
+					"digital experiences",
+					"brands that connect"
+				];
 
-				var $stage = $("#hero-reel-stage");
-				if (!$stage.length) return;
+				var $window = $("#hero-spinner-window");
+				var $track = $("#hero-spinner-track");
+				if (!$window.length || !$track.length) return;
 
-				var stageEl = $stage[0];
-				var words = reelConfig.words;
+				var windowEl = $window[0];
+				var trackEl = $track[0];
+
+				// Duplicate array to enable seamless infinite circular loop
+				var allServices = services.concat(services);
 				var items = [];
-				var currentIndex = 0;
 
-				// Populate stage items
-				$stage.empty();
-				words.forEach(function(word) {
+				$track.empty();
+				allServices.forEach(function(service, index) {
 					var el = document.createElement("span");
-					el.className = "ph-reel-item";
-					el.textContent = word;
-					stageEl.appendChild(el);
-					items.push({ el: el, word: word, width: 0 });
+					el.className = "ph-spinner-item";
+					el.textContent = service;
+					trackEl.appendChild(el);
+					items.push({ el: el, service: service, index: index });
 				});
 
-				// Accurate word width measurement for smooth width morphing
-				function measureWidths() {
-					items.forEach(function(item) {
-						var oldStyle = item.el.getAttribute("style");
-						item.el.style.transform = "none";
-						item.el.style.opacity = "1";
-						item.el.style.position = "static";
-						item.width = item.el.offsetWidth;
-						if (oldStyle) item.el.setAttribute("style", oldStyle);
-						else item.el.removeAttribute("style");
-					});
-				}
-				measureWidths();
-				$(window).on("resize", measureWidths);
-
-				// 3D slot calculations:
-				// offset 0  : Center active word (crisp, full opacity)
-				// offset -1 : Top slot (tilted backward, blurred, 35% opacity)
-				// offset +1 : Bottom slot (tilted forward, blurred, 35% opacity)
-				// offset <= -2 or >= 2 : Hidden out of 3D view
-				function getSlotProps(offset) {
-					if (offset === 0) {
-						return {
-							yPercent: 0,
-							z: 0,
-							rotateX: 0,
-							scale: 1,
-							opacity: 1,
-							filter: "blur(0px)",
-							pointerEvents: "auto"
-						};
-					} else if (offset === -1) {
-						return {
-							yPercent: -85,
-							z: -42,
-							rotateX: 34,
-							scale: 0.88,
-							opacity: 0.35,
-							filter: "blur(2px)",
-							pointerEvents: "none"
-						};
-					} else if (offset === 1) {
-						return {
-							yPercent: 85,
-							z: -42,
-							rotateX: -34,
-							scale: 0.88,
-							opacity: 0.35,
-							filter: "blur(2px)",
-							pointerEvents: "none"
-						};
-					} else if (offset < -1) {
-						return {
-							yPercent: -160,
-							z: -80,
-							rotateX: 60,
-							scale: 0.75,
-							opacity: 0,
-							filter: "blur(5px)",
-							pointerEvents: "none"
-						};
-					} else {
-						return {
-							yPercent: 160,
-							z: -80,
-							rotateX: -60,
-							scale: 0.75,
-							opacity: 0,
-							filter: "blur(5px)",
-							pointerEvents: "none"
-						};
+				var itemHeight = 0;
+				function measure() {
+					if (items.length) {
+						itemHeight = items[0].el.offsetHeight || items[0].el.getBoundingClientRect().height;
 					}
 				}
+				measure();
+				$(window).on("resize", measure);
 
-				function updateSlots(immediate) {
-					var total = words.length;
-					var activeItem = items[currentIndex];
+				var currentIndex = 0;
+				var holdDuration = 1.85; // seconds to hold on each active service
+				var spinDuration = 0.62; // seconds for the spin transition
 
-					// Smoothly adjust stage width to the active word
-					gsap.to(stageEl, {
-						width: activeItem.width + 6,
-						duration: immediate ? 0 : reelConfig.rollDuration,
-						ease: "power3.inOut"
-					});
-
+				function updateActive(index, immediate) {
 					items.forEach(function(item, i) {
-						var diff = (i - currentIndex) % total;
-						if (diff > total / 2) diff -= total;
-						if (diff < -total / 2) diff += total;
-
-						var props = getSlotProps(diff);
-						if (diff === 0) {
+						if (i === index) {
 							item.el.classList.add("is-active");
 						} else {
 							item.el.classList.remove("is-active");
 						}
+					});
 
-						if (immediate) {
-							gsap.set(item.el, props);
-						} else {
-							var tweenProps = {
-								yPercent: props.yPercent,
-								z: props.z,
-								rotateX: props.rotateX,
-								scale: props.scale,
-								opacity: props.opacity,
-								filter: props.filter,
-								duration: reelConfig.rollDuration,
-								ease: "power3.inOut"
-							};
-							gsap.to(item.el, tweenProps);
-						}
+					// Smoothly morph width to active service text
+					var activeItem = items[index];
+					var targetWidth = (activeItem.el.scrollWidth || activeItem.el.offsetWidth) + 4;
+					gsap.to(windowEl, {
+						width: targetWidth,
+						duration: immediate ? 0 : spinDuration,
+						ease: "power3.inOut"
+					});
+
+					// Vertical spinner scroll
+					var targetY = -index * itemHeight;
+					if (immediate) {
+						gsap.set(trackEl, { y: targetY });
+					} else {
+						gsap.to(trackEl, {
+							y: targetY,
+							duration: spinDuration,
+							ease: "power3.inOut",
+							onComplete: function() {
+								// Seamless loop reset when reaching duplicated half
+								if (index >= services.length) {
+									currentIndex = 0;
+									gsap.set(trackEl, { y: 0 });
+									updateActive(0, true);
+								}
+							}
+						});
+					}
+				}
+
+				// Initial placement
+				updateActive(0, true);
+
+				// Infinite rolling loop
+				function stepSpin() {
+					gsap.delayedCall(holdDuration, function() {
+						currentIndex++;
+						updateActive(currentIndex, false);
+						stepSpin();
 					});
 				}
 
-				// Place words into initial 3D positions immediately
-				updateSlots(true);
-
-				// Infinite rolling reel loop
-				function scheduleNextRoll() {
-					gsap.delayedCall(reelConfig.holdTime, function() {
-						currentIndex = (currentIndex + 1) % words.length;
-						updateSlots(false);
-						scheduleNextRoll();
-					});
-				}
-
-				// Settle entrance animation before first roll
-				gsap.delayedCall(1.2, scheduleNextRoll);
+				// Allow entrance animation to settle before starting
+				gsap.delayedCall(1.0, stepSpin);
 
 				// Silky smooth organic glassmorphism pulse (clear majority of the time, smooth sine curve)
 				var $frost = $(".ph-glassmorphic-frost");
