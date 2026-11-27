@@ -4018,11 +4018,12 @@ video.pgi-video {
 	font-weight: bold;
 	font-weight: 600;
 	color: #FFF;
-	line-height: 1.5;
+	line-height: 1.15;
 }
 @media (max-width: 767px) {
 	.pgi-title {
 		font-size: calc(19px + 1.5vw);
+		line-height: 1.15;
 	}
 }
 
@@ -4046,7 +4047,7 @@ video.pgi-video {
 /* Portfolio grid item categories */
 .pgi-categories-wrap {
 	position: relative;
-	margin-top: 8px;
+	margin-top: 2px;
 	white-space: nowrap;
 	overflow: hidden;
 	line-height: 1.2;
@@ -4168,6 +4169,66 @@ video.pgi-video {
 
 /* Portfolio grid item hover 
 ============================= */
+
+/* Portfolio item thumbnail <-> logo organic crossfade loop */
+.pgi-image.pgi-crossfade {
+	position: relative;
+	overflow: hidden;
+}
+
+.pgi-image.pgi-crossfade img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: 50% 50%;
+	display: block;
+}
+
+.pgi-image.pgi-crossfade .pgi-img-primary {
+	z-index: 1;
+	opacity: 1;
+}
+
+.pgi-image.pgi-crossfade .pgi-img-secondary {
+	z-index: 2;
+	opacity: 0;
+	will-change: opacity;
+	animation: pgiLogoCrossfade 7.6s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+}
+
+/* Staggered organic cascade across the 4 cards for a natural gallery wave */
+.tt-grid-item:nth-of-type(4n+1) .pgi-img-secondary {
+	animation-delay: 0s;
+}
+.tt-grid-item:nth-of-type(4n+2) .pgi-img-secondary {
+	animation-delay: 1.9s;
+}
+.tt-grid-item:nth-of-type(4n+3) .pgi-img-secondary {
+	animation-delay: 3.8s;
+}
+.tt-grid-item:nth-of-type(4n+4) .pgi-img-secondary {
+	animation-delay: 5.7s;
+}
+
+/* Pause animation on hover so user can inspect either state */
+.pgi-image-wrap:hover .pgi-img-secondary {
+	animation-play-state: paused;
+}
+
+@keyframes pgiLogoCrossfade {
+	0%, 35% {
+		opacity: 0;
+	}
+	48%, 85% {
+		opacity: 1;
+	}
+	98%, 100% {
+		opacity: 0;
+	}
+}
 
 /* Clip path (effect only with gaps) */
 @media (min-width: 768px) {
