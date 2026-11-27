@@ -2250,7 +2250,7 @@ body:not(.tt-boxed) .page-header-inner,
 	.ph-caption-btn-wrap.ph-btn-mobile {
 		position: absolute !important;
 		top: auto !important;
-		bottom: 35px !important;
+		bottom: 75px !important;
 		left: 6% !important;
 		right: auto !important;
 		margin: 0 !important;
@@ -2283,7 +2283,7 @@ body:not(.tt-boxed) .page-header-inner,
 	.ph-caption-btn-wrap.ph-btn-mobile {
 		position: absolute !important;
 		top: auto !important;
-		bottom: 30px !important;
+		bottom: 70px !important;
 		left: 6% !important;
 		transform: none !important;
 	}
@@ -2300,7 +2300,7 @@ body:not(.tt-boxed) .page-header-inner,
 		max-height: 160px !important;
 	}
 	.ph-caption-btn-wrap.ph-btn-mobile {
-		bottom: 25px !important;
+		bottom: 65px !important;
 		transform: none !important;
 	}
 }
