@@ -2871,11 +2871,10 @@ a.ph-category:hover {
 	align-items: center !important;
 	height: 100vh !important;
 	height: 100svh !important;
-	height: 100dvh !important;
 	min-height: 100vh !important;
-	min-height: 100dvh !important;
+	min-height: 100svh !important;
 	max-height: 100vh !important;
-	max-height: 100dvh !important;
+	max-height: 100svh !important;
 	box-sizing: border-box !important;
 	overflow: hidden !important;
 }

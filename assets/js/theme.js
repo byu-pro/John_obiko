@@ -426,7 +426,7 @@
 	// Image lazy loading
 	// ==================================================
 
-	ScrollTrigger.config({ limitCallbacks: true });
+	ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
 
 	gsap.utils.toArray(".tt-lazy").forEach(image => {
 		
@@ -1822,103 +1822,107 @@
 	// Page header elements scrolling effects
 	// =======================================
 	if ($("#page-header").hasClass("ph-content-parallax")) {
-		let tlPhParallax = gsap.timeline({ 
-			scrollTrigger: {
-				trigger: "#page-header", 
-				start: 'top top', 
-				end: 'bottom top', 
-				scrub: true,
-				markers: false
+		ScrollTrigger.matchMedia({
+			"(min-width: 1025px)": function() {
+				let tlPhParallax = gsap.timeline({ 
+					scrollTrigger: {
+						trigger: "#page-header", 
+						start: 'top top', 
+						end: 'bottom top', 
+						scrub: true,
+						markers: false
+					}
+				});
+
+				// Page header caption elements
+				if ($("#page-header").hasClass("ph-bg-image")) {
+					if ($(".ph-caption").length) {
+						if ($("#page-header").hasClass("ph-center")) {
+							tlPhParallax.to(".ph-caption", { y: 180, opacity: 0, scale: 0.95, transformOrigin: "center" }, 0);
+						} else {
+							tlPhParallax.to(".ph-caption", { y: 180, opacity: 0, scale: 0.95, transformOrigin: "left" }, 0);
+						}
+					}
+					if ($(".ph-image").length) {
+						tlPhParallax.to(".ph-image-inner", { yPercent: 30 }, 0);
+					}
+
+				} else {
+
+					if ($(".ph-categories").length) {
+						tlPhParallax.to(".ph-categories", { y: -220 }, 0);
+					}
+					if ($(".ph-caption-subtitle").length) {
+						tlPhParallax.to(".ph-caption-subtitle", { y: -230 }, 0);
+					}
+					if ($(".ph-caption-title").length) {
+						tlPhParallax.to(".ph-caption-title", { y: -180 }, 0);
+					}
+					if ($(".ph-caption-description").length) {
+						tlPhParallax.to(".ph-caption-description", { y: -120 }, 0);
+					}
+					if ($(".ph-meta").length) {
+						tlPhParallax.to(".ph-meta", { y: -220 }, 0);
+					}
+					if ($(".ph-image").length) {
+						tlPhParallax.to(".ph-image-inner", { y: -100 }, 0);
+					}
+
+					// Page header ghost
+					var $phGhost = $(".ph-caption-title-ghost");
+					if ($phGhost.length) {
+						if (!$("#page-header").hasClass("ph-center")) {
+							$phGhost.appendTo("#page-header");
+							if ($("#page-header").hasClass("ph-ghost-scroll")) {
+								$phGhost.find(".ph-appear").wrapInner('<span class="phgh-text"></span>');
+								var $phghText = $phGhost.find(".phgh-text");
+								for (var i = 0; i < 3; i++) {
+									$phghText.clone().insertAfter($phghText);
+								}
+								tlPhParallax.to($phGhost, { y: -60, xPercent: -8 }, 0);
+							} else {
+								tlPhParallax.to($phGhost, { y: -30 }, 0);
+							}
+						} else {
+							tlPhParallax.to($phGhost, { y: -60 }, 0);
+						}
+					}
+
+				}
+
+				// Page header scroll down circle
+				if ($(".tt-scroll-down").length) {
+					gsap.to(".tt-scroll-down", { 
+						// y: 100,
+						autoAlpha: 0,
+						ease: "none",
+						scrollTrigger: {
+							trigger: "#page-header",
+							start: "top top",
+							end: "30% top",
+							scrub: true,
+							markers: false
+						}, 
+					});
+				}
+
+				// Page header projekt share
+				if ($(".ph-share").length) {
+					gsap.to(".ph-share-inner", { 
+						// y: 100,
+						autoAlpha: 0,
+						ease: "none",
+						scrollTrigger: {
+							trigger: "#page-header",
+							start: "top top",
+							end: "30% top",
+							scrub: true,
+							markers: false
+						}, 
+					});
+				}
 			}
 		});
-
-		// Page header caption elements
-		if ($("#page-header").hasClass("ph-bg-image")) {
-			if ($(".ph-caption").length) {
-				if ($("#page-header").hasClass("ph-center")) {
-					tlPhParallax.to(".ph-caption", { y: 180, opacity: 0, scale: 0.95, transformOrigin: "center" }, 0);
-				} else {
-					tlPhParallax.to(".ph-caption", { y: 180, opacity: 0, scale: 0.95, transformOrigin: "left" }, 0);
-				}
-			}
-			if ($(".ph-image").length) {
-				tlPhParallax.to(".ph-image-inner", { yPercent: 30 }, 0);
-			}
-
-		} else {
-
-			if ($(".ph-categories").length) {
-				tlPhParallax.to(".ph-categories", { y: -220 }, 0);
-			}
-			if ($(".ph-caption-subtitle").length) {
-				tlPhParallax.to(".ph-caption-subtitle", { y: -230 }, 0);
-			}
-			if ($(".ph-caption-title").length) {
-				tlPhParallax.to(".ph-caption-title", { y: -180 }, 0);
-			}
-			if ($(".ph-caption-description").length) {
-				tlPhParallax.to(".ph-caption-description", { y: -120 }, 0);
-			}
-			if ($(".ph-meta").length) {
-				tlPhParallax.to(".ph-meta", { y: -220 }, 0);
-			}
-			if ($(".ph-image").length) {
-				tlPhParallax.to(".ph-image-inner", { y: -100 }, 0);
-			}
-
-			// Page header ghost
-			var $phGhost = $(".ph-caption-title-ghost");
-			if ($phGhost.length) {
-				if (!$("#page-header").hasClass("ph-center")) {
-					$phGhost.appendTo("#page-header");
-					if ($("#page-header").hasClass("ph-ghost-scroll")) {
-						$phGhost.find(".ph-appear").wrapInner('<span class="phgh-text"></span>');
-						var $phghText = $phGhost.find(".phgh-text");
-						for (var i = 0; i < 3; i++) {
-							$phghText.clone().insertAfter($phghText);
-						}
-						tlPhParallax.to($phGhost, { y: -60, xPercent: -8 }, 0);
-					} else {
-						tlPhParallax.to($phGhost, { y: -30 }, 0);
-					}
-				} else {
-					tlPhParallax.to($phGhost, { y: -60 }, 0);
-				}
-			}
-
-		}
-
-		// Page header scroll down circle
-		if ($(".tt-scroll-down").length) {
-			gsap.to(".tt-scroll-down", { 
-				// y: 100,
-				autoAlpha: 0,
-				ease: "none",
-				scrollTrigger: {
-					trigger: "#page-header",
-					start: "top top",
-					end: "30% top",
-					scrub: true,
-					markers: false
-				}, 
-			});
-		}
-
-		// Page header projekt share
-		if ($(".ph-share").length) {
-			gsap.to(".ph-share-inner", { 
-				// y: 100,
-				autoAlpha: 0,
-				ease: "none",
-				scrollTrigger: {
-					trigger: "#page-header",
-					start: "top top",
-					end: "30% top",
-					scrub: true,
-					markers: false
-				}, 
-			});
-		}
 	}
 
 	// If page header is visible
@@ -2080,14 +2084,9 @@
 				end: "bottom top",
 				scrub: true,
 				markers: false,
-				onEnter: () => animImgParallaxRefresh(),
 			},
 		});
 		tl_ImageParallax.to($animImageParallax, { yPercent: 30, ease: "none" });
-
-		function animImgParallaxRefresh() {
-			tl_ImageParallax.scrollTrigger.refresh();
-		}
 
 		// Zoom in
 		let tl_aipZoomIn = gsap.timeline({
@@ -2347,15 +2346,9 @@
 				trigger: $asiWrap,
 				start: "top bottom",
 				markers: false,
-				onEnter: () => animZoomInRefresh(),
 			}
 		});
 		tl_ZoomIn.from($this, { duration: 1.5, autoAlpha: 0, scale: 1.2, ease: Power2.easeOut, clearProps:"all" });
-
-		// Refresh on enter.
-		function animZoomInRefresh() {
-			tl_ZoomIn.scrollTrigger.refresh();
-		};
 	});
 
 
