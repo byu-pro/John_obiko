@@ -2123,16 +2123,16 @@ body:not(.tt-boxed) .page-header-inner,
 ======================= */
 .ph-caption {
 	position: relative;
-	transform: translateY(-50px);
+	transform: translateY(-80px);
 }
 @media (max-width: 1024px) {
 	.ph-caption {
-		transform: translateY(-30px);
+		transform: translateY(-40px);
 	}
 }
 @media (max-width: 768px) {
 	.ph-caption {
-		transform: translateY(-20px);
+		transform: translateY(-25px);
 	}
 }
 
@@ -2156,21 +2156,28 @@ body:not(.tt-boxed) .page-header-inner,
 /* Page Header CTA Button (Let's talk) */
 .ph-caption-btn-wrap {
 	position: absolute;
-	bottom: 2%;
-	left: 4%;
+	top: 395px;
+	left: 0;
 	z-index: 10;
 	display: inline-block;
 	margin: 0;
 }
 
+.ph-btn-mobile {
+	display: none !important;
+}
+.ph-btn-desktop {
+	display: inline-block !important;
+}
+
 @media (min-width: 1025px) {
-	.ph-caption-btn-wrap {
-		bottom: 35px;
-		left: 4%;
+	.ph-caption-btn-wrap.ph-btn-desktop {
+		top: 395px;
+		left: 0;
 	}
 	.tt-scroll-down {
-		bottom: 35px !important;
-		left: calc(4% + 180px) !important;
+		bottom: 2%;
+		left: 4% !important;
 	}
 }
 
@@ -2178,12 +2185,12 @@ body:not(.tt-boxed) .page-header-inner,
 	display: inline-flex;
 	align-items: center;
 	gap: 12px;
-	padding: 10px 26px 10px 30px;
+	padding: 11px 28px 11px 32px;
 	background: rgba(217, 253, 23, 0.12);
 	color: #FFF;
 	border: 1px solid rgba(217, 253, 23, 0.45);
 	border-radius: 50px;
-	font-size: 14.5px;
+	font-size: 15px;
 	font-weight: 600;
 	letter-spacing: 0.5px;
 	text-decoration: none;
@@ -2227,6 +2234,12 @@ body:not(.tt-boxed) .page-header-inner,
 }
 
 @media (max-width: 1024px) {
+	.ph-btn-desktop {
+		display: none !important;
+	}
+	.ph-btn-mobile {
+		display: inline-block !important;
+	}
 	.ph-caption-title {
 		font-size: clamp(32px, 5.5vw, 54px) !important;
 		line-height: 1.2 !important;
@@ -2234,12 +2247,16 @@ body:not(.tt-boxed) .page-header-inner,
 		min-height: 190px !important;
 		max-height: 190px !important;
 	}
-	.ph-caption-btn-wrap {
+	.ph-caption-btn-wrap.ph-btn-mobile {
 		position: absolute !important;
-		bottom: 30px !important;
+		top: auto !important;
+		bottom: 35px !important;
 		left: 6% !important;
+		right: auto !important;
 		margin: 0 !important;
+		transform: none !important;
 		display: inline-block !important;
+		z-index: 10 !important;
 	}
 	.tt-scroll-down {
 		display: none !important;
@@ -2263,10 +2280,12 @@ body:not(.tt-boxed) .page-header-inner,
 		min-height: 175px !important;
 		max-height: 175px !important;
 	}
-	.ph-caption-btn-wrap {
+	.ph-caption-btn-wrap.ph-btn-mobile {
 		position: absolute !important;
-		bottom: 25px !important;
+		top: auto !important;
+		bottom: 30px !important;
 		left: 6% !important;
+		transform: none !important;
 	}
 	.ph-cta-btn {
 		padding: 10px 24px 10px 28px;
@@ -2280,8 +2299,9 @@ body:not(.tt-boxed) .page-header-inner,
 		min-height: 160px !important;
 		max-height: 160px !important;
 	}
-	.ph-caption-btn-wrap {
-		bottom: 20px !important;
+	.ph-caption-btn-wrap.ph-btn-mobile {
+		bottom: 25px !important;
+		transform: none !important;
 	}
 }
 .ph-rotator-text {
