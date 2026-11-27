@@ -1232,17 +1232,23 @@
 				});
 
 				var itemHeight = 0;
+				var currentIndex = 0;
+				var holdDuration = 1.85; // seconds to hold on each active service
+				var spinDuration = 0.62; // seconds for the spin transition
+
 				function measure() {
 					if (items.length) {
 						itemHeight = items[0].el.offsetHeight || items[0].el.getBoundingClientRect().height;
+						if (items[currentIndex]) {
+							gsap.set(trackEl, { y: -currentIndex * itemHeight });
+							var activeItem = items[currentIndex];
+							var targetWidth = (activeItem.el.scrollWidth || activeItem.el.offsetWidth) + 4;
+							gsap.set(windowEl, { width: targetWidth });
+						}
 					}
 				}
 				measure();
 				$(window).on("resize", measure);
-
-				var currentIndex = 0;
-				var holdDuration = 1.85; // seconds to hold on each active service
-				var spinDuration = 0.62; // seconds for the spin transition
 
 				function updateActive(index, immediate) {
 					items.forEach(function(item, i) {
