@@ -424,7 +424,8 @@
 							<div class="ph-image">
 								<div class="ph-image-inner">
 									<img src="assets/img/header-bg.webp?v=5" alt="ondwariobiko">
-									<div class="ph-glassmorphic-layer"></div>
+									<div class="ph-contrast-overlay"></div>
+									<div class="ph-glassmorphic-frost"></div>
 								</div>
 							</div>
 							<!-- End page header image -->
@@ -1215,6 +1216,31 @@
 
 				// Allow the page entrance animation to settle before starting the loop
 				setTimeout(nextPhrase, phrases[0].hold);
+
+				// Silky smooth organic glassmorphism pulse (clear majority of the time, smooth sine curve)
+				var $frost = $(".ph-glassmorphic-frost");
+				if ($frost.length) {
+					function runGlassmorphismCycle() {
+						gsap.delayedCall(6.5, function() {
+							gsap.to($frost, {
+								duration: 2.5,
+								opacity: 1,
+								ease: "sine.inOut",
+								onComplete: function() {
+									gsap.delayedCall(1.2, function() {
+										gsap.to($frost, {
+											duration: 2.5,
+											opacity: 0,
+											ease: "sine.inOut",
+											onComplete: runGlassmorphismCycle
+										});
+									});
+								}
+							});
+						});
+					}
+					runGlassmorphismCycle();
+				}
 
 				// Scroll handler for Sticky Nav Blur and Back-to-Top Button
 				var $targetProject = $("#elegant-women-project");

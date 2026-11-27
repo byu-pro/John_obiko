@@ -2067,8 +2067,8 @@ body:not(.tt-boxed) .page-header-inner,
 	transform: scale(1.02);
 }
 
-/* Glassmorphism layer over header background */
-.ph-glassmorphic-layer {
+/* Permanent contrast overlay: keeps forefront text commanding at all times */
+.ph-contrast-overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -2076,29 +2076,24 @@ body:not(.tt-boxed) .page-header-inner,
 	bottom: 0;
 	z-index: 2;
 	pointer-events: none;
-	/* Directional gradient: deeper contrast on the left so the forefront text is the undisputed main element */
-	background: linear-gradient(to right, rgba(2, 2, 2, 0.78) 0%, rgba(4, 4, 4, 0.55) 45%, rgba(8, 8, 8, 0.22) 100%),
-	            linear-gradient(125deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 35%, transparent 60%);
-	box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), inset 0 0 120px rgba(0, 0, 0, 0.5);
-	backdrop-filter: blur(0px) saturate(100%);
-	-webkit-backdrop-filter: blur(0px) saturate(100%);
-	will-change: backdrop-filter;
-	animation: phGlassmorphicBreath 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	background: linear-gradient(to right, rgba(2, 2, 2, 0.78) 0%, rgba(4, 4, 4, 0.52) 48%, rgba(8, 8, 8, 0.2) 100%);
 }
 
-@keyframes phGlassmorphicBreath {
-	0%, 65%, 100% {
-		backdrop-filter: blur(0px) saturate(100%) brightness(100%);
-		-webkit-backdrop-filter: blur(0px) saturate(100%) brightness(100%);
-	}
-	80% {
-		backdrop-filter: blur(18px) saturate(155%) brightness(95%);
-		-webkit-backdrop-filter: blur(18px) saturate(155%) brightness(95%);
-	}
-	88% {
-		backdrop-filter: blur(18px) saturate(155%) brightness(95%);
-		-webkit-backdrop-filter: blur(18px) saturate(155%) brightness(95%);
-	}
+/* Glassmorphic frosted layer: smoothly dissolves in and out via opacity */
+.ph-glassmorphic-frost {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 3;
+	pointer-events: none;
+	backdrop-filter: blur(20px) saturate(155%) brightness(95%);
+	-webkit-backdrop-filter: blur(20px) saturate(155%) brightness(95%);
+	background: linear-gradient(125deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 40%, rgba(10, 10, 10, 0.3) 100%);
+	box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), inset 0 0 140px rgba(0, 0, 0, 0.5);
+	opacity: 0;
+	will-change: opacity;
 }
 
 /* Let the glassmorphic layer handle the depth and contrast */
