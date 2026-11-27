@@ -2122,6 +2122,7 @@ body:not(.tt-boxed) .page-header-inner,
 	color: #FFF;
 	line-height: 1.2;
 	z-index: 9;
+	min-height: 3.8em;
 }
 .ph-rotator-text {
 	display: inline-block;
@@ -2130,6 +2131,37 @@ body:not(.tt-boxed) .page-header-inner,
 .text-highlight,
 .ph-rotator-text .text-highlight {
 	color: var(--tt-main-color);
+}
+
+/* Ensure mobile header height is locked and never jumps when text rotates */
+@media (max-width: 1024px) {
+	#page-header.ph-full {
+		display: flex;
+		align-items: center;
+		min-height: 100vh;
+		min-height: 100svh;
+		min-height: 100dvh;
+	}
+	#page-header.ph-full .page-header-inner {
+		padding-top: 140px !important;
+		padding-bottom: 90px !important;
+		width: 100%;
+	}
+	.ph-caption-title {
+		min-height: 4em;
+	}
+}
+
+@media (max-width: 768px) {
+	.ph-caption-title {
+		min-height: 4.4em;
+	}
+}
+
+@media (max-width: 480px) {
+	.ph-caption-title {
+		min-height: 4.8em;
+	}
 }
 
 /* Scroll to top (styled exactly like the page header scroll down button)
