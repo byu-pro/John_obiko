@@ -2213,9 +2213,9 @@ body:not(.tt-boxed) .page-header-inner,
 	display: flex;
 	align-items: center;
 	white-space: nowrap;
-	color: #ffffff;
-	font-weight: 400;
-	opacity: 0.3;
+	color: #d9fd17;
+	font-weight: 500;
+	opacity: 0.35;
 	filter: blur(1.5px);
 	transition: opacity 0.5s ease, filter 0.5s ease, color 0.5s ease;
 }
@@ -2223,8 +2223,8 @@ body:not(.tt-boxed) .page-header-inner,
 .ph-spinner-item.is-active {
 	opacity: 1;
 	filter: blur(0px);
-	color: #ffffff;
-	text-shadow: 0 0 24px rgba(255, 255, 255, 0.28);
+	color: #d9fd17 !important;
+	text-shadow: 0 0 24px rgba(217, 253, 23, 0.4);
 }
 
 @media (max-width: 1024px) {

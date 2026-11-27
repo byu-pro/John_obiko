@@ -454,7 +454,7 @@
 								</h1>
 								<!-- Desktop Page Header CTA Button (Let's talk) -->
 								<div class="ph-caption-btn-wrap ph-btn-desktop ph-appear">
-									<a href="#tt-contact-section" class="ph-cta-btn magnetic-item" data-cursor="Talk">
+									<a href="mailto:ondwariobiko@gmail.com" class="ph-cta-btn magnetic-item" data-cursor="Talk">
 										<span class="ph-cta-btn-text" data-hover="Let's talk">Let's talk</span>
 										<span class="ph-cta-btn-icon"><i class="fas fa-arrow-right"></i></span>
 									</a>
@@ -469,7 +469,7 @@
 
 						<!-- Mobile Page Header CTA Button (Let's talk) -->
 						<div class="ph-caption-btn-wrap ph-btn-mobile ph-appear">
-							<a href="#tt-contact-section" class="ph-cta-btn magnetic-item" data-cursor="Talk">
+							<a href="mailto:ondwariobiko@gmail.com" class="ph-cta-btn magnetic-item" data-cursor="Talk">
 								<span class="ph-cta-btn-text" data-hover="Let's talk">Let's talk</span>
 								<span class="ph-cta-btn-icon"><i class="fas fa-arrow-right"></i></span>
 							</a>
@@ -1251,28 +1251,6 @@
 					}
 					$("html, body").animate({ scrollTop: 0 }, 800);
 					return false;
-				});
-
-				// Smooth scroll for Header CTA "Let's talk" button
-				$(".ph-cta-btn").on("click", function(e) {
-					var target = $("#tt-contact-section");
-					if (target.length) {
-						e.preventDefault();
-						if ($("body").hasClass("tt-smooth-scroll") && typeof Scrollbar !== "undefined") {
-							var scrollbar = Scrollbar.get(document.getElementById("scroll-container"));
-							if (scrollbar) {
-								var targetOffset = target[0].getBoundingClientRect().top + scrollbar.scrollTop;
-								if (typeof gsap !== "undefined" && typeof Expo !== "undefined") {
-									gsap.to(scrollbar, { duration: 1.5, scrollTo: { y: targetOffset, autoKill: true }, ease: Expo.easeInOut });
-								} else {
-									scrollbar.scrollTo(0, targetOffset, 1000);
-								}
-								return false;
-							}
-						}
-						$("html, body").animate({ scrollTop: target.offset().top }, 800);
-						return false;
-					}
 				});
 
 				var btnIsLight = false;
