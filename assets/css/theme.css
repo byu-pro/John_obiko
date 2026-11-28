@@ -1560,7 +1560,10 @@ body:not(.is-mobile) .tt-ol-menu-list > li > .tt-ol-submenu-trigger:hover > a,
 body:not(.is-mobile) .tt-ol-menu-list > li > .tt-ol-submenu-trigger:hover .tt-ol-submenu-caret,
 .tt-ol-menu-list > li > .tt-ol-submenu-trigger.tt-ol-submenu-open > a,
 .tt-ol-menu-list > li > .tt-ol-submenu-trigger.tt-ol-submenu-open .tt-ol-submenu-caret {
-	color: #FFF;
+	color: #d9fd17 !important;
+}
+.tt-overlay-menu.tt-ol-menu-count .tt-ol-menu-list > li:hover::before {
+	color: #d9fd17 !important;
 }
 .tt-ol-menu-list > li.active > a,
 .tt-ol-menu-list > li.active > .tt-ol-submenu-trigger > a,
