@@ -11469,6 +11469,48 @@ body.tt-boxed .tt-wrap .tt-page-nav:not(.tt-pn-center) {
 	}
 }
 
+/* ============================================================= *
+ * Footer Wordmark Image & Footer Styling
+ * ============================================================= */
+.ob-footer-wordmark-wrap {
+	width: 100%;
+	padding: 40px 4% 30px 4%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+	user-select: none;
+}
+.ob-footer-wordmark {
+	max-width: min(1000px, 90vw);
+	width: 100%;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+	pointer-events: none;
+	opacity: 0.96;
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.ob-footer.no-social .tt-footer-inner {
+	justify-content: center !important;
+	text-align: center;
+	padding-left: 4% !important;
+	padding-right: 4% !important;
+}
+.ob-footer.no-social .ob-footer-copyright {
+	text-align: center;
+	width: 100%;
+}
+@media (max-width: 768px) {
+	.ob-footer-wordmark-wrap {
+		padding: 25px 4% 20px 4%;
+	}
+	.ob-footer-wordmark {
+		max-width: min(600px, 94vw);
+	}
+}
+
+
 
 
 
