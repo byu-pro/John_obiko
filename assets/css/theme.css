@@ -11542,6 +11542,30 @@ p a:hover,
 	}
 }
 
+/* ============================================================= *
+ * Elimination of Inverted / Hollow Stroke Text Sitewide
+ * ============================================================= */
+.tt-page-nav .tt-pn-title,
+.tt-page-nav.tt-pn-stroke .tt-pn-title,
+.tt-page-nav a .tt-pn-title,
+.tt-page-nav.tt-pn-stroke a .tt-pn-title,
+#page-header.ph-stroke .ph-caption-title {
+	-webkit-text-stroke: 0 !important;
+	-webkit-text-fill-color: #FFF !important;
+	color: #FFF !important;
+}
+
+/* ============================================================= *
+ * Footer Follow Button Alignment with Header Menu Toggle
+ * ============================================================= */
+#tt-footer .footer-col.tt-align-center-right,
+#tt-footer .footer-col.tt-align-center-right .footer-col-inner,
+#tt-footer .footer-social {
+	padding-right: 0 !important;
+	margin-right: 0 !important;
+}
+
+
 
 
 

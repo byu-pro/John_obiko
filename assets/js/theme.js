@@ -1545,7 +1545,11 @@
 			// Data attributes
 			// ================
 			var $dataSimulateTouch = $ttTestimonialsSlider.data("simulate-touch");
-			var $autoplay = $ttTestimonialsSlider.data("autoplay") ? { delay: $ttTestimonialsSlider.data("autoplay"), } : $ttTestimonialsSlider.data("autoplay");
+			var $autoplay = $ttTestimonialsSlider.data("autoplay") ? {
+				delay: $ttTestimonialsSlider.data("autoplay"),
+				disableOnInteraction: false,
+				pauseOnMouseEnter: true
+			} : false;
 			var $dataLoop = $ttTestimonialsSlider.data("loop") ? { loopedSlides: 100, } : $ttTestimonialsSlider.data("loop");
 
 			if ($ttTestimonialsSlider.is("[data-speed]")) {
@@ -1874,10 +1878,12 @@
 						if (!$("#page-header").hasClass("ph-center")) {
 							$phGhost.appendTo("#page-header");
 							if ($("#page-header").hasClass("ph-ghost-scroll")) {
-								$phGhost.find(".ph-appear").wrapInner('<span class="phgh-text"></span>');
-								var $phghText = $phGhost.find(".phgh-text");
-								for (var i = 0; i < 3; i++) {
-									$phghText.clone().insertAfter($phghText);
+								if (!$phGhost.find(".phgh-text").length) {
+									$phGhost.find(".ph-appear").wrapInner('<span class="phgh-text"></span>');
+									var $phghText = $phGhost.find(".phgh-text");
+									for (var i = 0; i < 3; i++) {
+										$phghText.clone().insertAfter($phghText);
+									}
 								}
 								tlPhParallax.to($phGhost, { y: -60, xPercent: -8 }, 0);
 							} else {
@@ -1920,6 +1926,40 @@
 							markers: false
 						}, 
 					});
+				}
+			},
+
+			"(max-width: 1024px)": function() {
+				let tlPhParallaxMobile = gsap.timeline({ 
+					scrollTrigger: {
+						trigger: "#page-header", 
+						start: 'top top', 
+						end: 'bottom top', 
+						scrub: true,
+						markers: false
+					}
+				});
+
+				// Page header ghost for mobile
+				var $phGhostMobile = $(".ph-caption-title-ghost");
+				if ($phGhostMobile.length) {
+					if (!$("#page-header").hasClass("ph-center")) {
+						$phGhostMobile.appendTo("#page-header");
+						if ($("#page-header").hasClass("ph-ghost-scroll")) {
+							if (!$phGhostMobile.find(".phgh-text").length) {
+								$phGhostMobile.find(".ph-appear").wrapInner('<span class="phgh-text"></span>');
+								var $phghTextMobile = $phGhostMobile.find(".phgh-text");
+								for (var j = 0; j < 3; j++) {
+									$phghTextMobile.clone().insertAfter($phghTextMobile);
+								}
+							}
+							tlPhParallaxMobile.to($phGhostMobile, { y: -40, xPercent: -15 }, 0);
+						} else {
+							tlPhParallaxMobile.to($phGhostMobile, { y: -20 }, 0);
+						}
+					} else {
+						tlPhParallaxMobile.to($phGhostMobile, { y: -30 }, 0);
+					}
 				}
 			}
 		});

@@ -39,7 +39,7 @@
 
 		<!-- Template master CSS -->
 		<link rel="stylesheet" href="assets/css/helper.css">
-		<link id="tt-themecss" rel="stylesheet" href="assets/css/theme.css?v=18">
+		<link id="tt-themecss" rel="stylesheet" href="assets/css/theme.css?v=19">
 
 	</head>
 
@@ -539,7 +539,7 @@
 							<div class="tt-section-inner tt-wrap">
 
 								<!-- Begin page nav -->
-								<div class="tt-page-nav tt-pn-stroke">
+								<div class="tt-page-nav">
 									<a href="contact.html" class="tt-pn-link anim-fadeinup" data-cursor="<i class='fas fa-envelope'></i>">
 										<div class="tt-pn-title">Let's talk</div>
 										<div class="tt-pn-hover-title">Let's talk</div>
@@ -566,7 +566,7 @@
 							<img src="assets/img/footer_wordmark.png" class="ob-footer-wordmark" alt="ondwariobiko">
 						</div>
 
-						<div class="tt-footer-inner tt-wrap">
+						<div class="tt-footer-inner">
 
 							<!-- Footer Left Column (Spacer for circular back-to-top button) -->
 							<div class="footer-col tt-align-center-left">
@@ -607,6 +607,14 @@
 			</div>
 			<!-- End scroll container -->
 
+
+			<!-- Scroll to top button -->
+			<div class="tt-scroll-to-top scroll-to-top" data-cursor="Top">
+				<a href="#" class="tt-st-circle magnetic-item" aria-label="Back to top">
+					<i class="fas fa-arrow-up"></i>
+				</a>
+			</div>
+
 		</main>
 		<!-- End body inner -->
 
@@ -632,6 +640,108 @@
 
 		<!-- Template master JS -->
 		<script src="assets/js/theme.js"></script>
+
+		<script>
+			$(window).on("load", function() {
+				var $pageHeader = $("#page-header");
+				var $backToTopBtn = $(".scroll-to-top");
+				var $header = $("#tt-header");
+				var headerScrolled = false;
+				var btnVisible = false;
+				var cachedTriggerPoint = 200;
+				var ticking = false;
+
+				function updateTriggerCoords() {
+					var h = $pageHeader.length ? $pageHeader.outerHeight() : $(window).height();
+					cachedTriggerPoint = Math.max(200, h * 0.4);
+				}
+
+				if ($backToTopBtn.length) {
+					$("body").append($backToTopBtn);
+				}
+				$backToTopBtn.on("click", function(e) {
+					e.preventDefault();
+					if ($("body").hasClass("tt-smooth-scroll") && typeof Scrollbar !== "undefined") {
+						var scrollbar = Scrollbar.get(document.getElementById("scroll-container"));
+						if (scrollbar) {
+							if (typeof gsap !== "undefined" && typeof Expo !== "undefined") {
+								gsap.to(scrollbar, { duration: 1.5, scrollTo: { y: 0, autoKill: true }, ease: Expo.easeInOut });
+							} else {
+								scrollbar.scrollTo(0, 0, 1000);
+							}
+							return false;
+						}
+					}
+					$("html, body").animate({ scrollTop: 0 }, 800);
+					return false;
+				});
+
+				function updateScrollUI(scrollY) {
+					if (scrollY > 50) {
+						if (!headerScrolled) {
+							headerScrolled = true;
+							$header.addClass("tt-header-scrolled");
+						}
+					} else {
+						if (headerScrolled) {
+							headerScrolled = false;
+							$header.removeClass("tt-header-scrolled");
+						}
+					}
+
+					if ($backToTopBtn.length) {
+						if (scrollY > cachedTriggerPoint) {
+							if (!btnVisible) {
+								btnVisible = true;
+								$backToTopBtn.addClass("is-visible");
+							}
+						} else {
+							if (btnVisible) {
+								btnVisible = false;
+								$backToTopBtn.removeClass("is-visible");
+							}
+						}
+					}
+				}
+
+				function onScrollEvent(scrollY) {
+					if (!ticking) {
+						requestAnimationFrame(function() {
+							updateScrollUI(scrollY);
+							ticking = false;
+						});
+						ticking = true;
+					}
+				}
+
+				updateTriggerCoords();
+				$(window).on("resize orientationchange", function() {
+					updateTriggerCoords();
+					var currentScroll = 0;
+					if ($("body").hasClass("tt-smooth-scroll") && typeof Scrollbar !== "undefined") {
+						var sb = Scrollbar.get(document.getElementById("scroll-container"));
+						if (sb) currentScroll = sb.scrollTop;
+					} else {
+						currentScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+					}
+					updateScrollUI(currentScroll);
+				});
+
+				if ($("body").hasClass("tt-smooth-scroll") && typeof Scrollbar !== "undefined") {
+					var sb = Scrollbar.get(document.getElementById("scroll-container"));
+					if (sb) {
+						sb.addListener(function(status) {
+							onScrollEvent(status.offset.y);
+						});
+					}
+				}
+				$(window).on("scroll", function() {
+					onScrollEvent(window.pageYOffset || document.documentElement.scrollTop || 0);
+				});
+
+				updateScrollUI(0);
+			});
+		</script>
 
 	</body>
 
