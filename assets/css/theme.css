@@ -11392,15 +11392,6 @@ p a:hover,
 #tt-footer.footer-absolute.ob-footer .footer-social {
 	pointer-events: auto;
 }
-.ob-footer .tt-footer-inner {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	min-height: 50px; /* Exact same 50px height as the circular back-to-top button */
-	padding-left: calc(4% + 65px); /* Leaves clear room for floating circle at left: 4% */
-	padding-right: 4%;
-	position: relative;
-}
 .ob-footer-copyright {
 	font-family: 'Poppins', sans-serif;
 	font-size: 12px;
@@ -11408,28 +11399,8 @@ p a:hover,
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
 	color: #777777;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
 	text-align: center;
-	white-space: nowrap;
-}
-@media (max-width: 1024px) {
-	.ob-footer .tt-footer-inner {
-		flex-direction: column-reverse;
-		justify-content: center;
-		align-items: center;
-		padding-left: 4%;
-		padding-right: 4%;
-		gap: 15px;
-	}
-	.ob-footer-copyright {
-		position: static;
-		transform: none;
-		text-align: center;
-		white-space: normal;
-		width: 100%;
-	}
+	line-height: 1.5;
 }
 .ob-footer .footer-social .footer-social-text:hover,
 .ob-footer .footer-social:hover .footer-social-text {
