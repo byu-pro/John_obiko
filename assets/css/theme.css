@@ -11501,6 +11501,138 @@ body.tt-boxed .tt-wrap .tt-page-nav:not(.tt-pn-center) {
 	}
 }
 
+/* ============================================================= *
+ * Comprehensive Mobile Responsiveness (About, Contact, Work)
+ * ============================================================= */
+
+/* 1. Contact Page Email & Headings (Never overflow on mobile) */
+.tt-heading-title a[href^="mailto:"] {
+	font-size: clamp(20px, 5.8vw, 56px);
+	display: inline-block;
+	max-width: 100%;
+	word-break: break-all;
+	line-height: 1.15;
+}
+@media (max-width: 768px) {
+	.tt-heading-title a[href^="mailto:"] {
+		font-size: clamp(17px, 5.2vw, 24px) !important;
+		word-break: break-all !important;
+		letter-spacing: -0.02em;
+	}
+	.tt-contact-info li.text-xlg {
+		font-size: 15px !important;
+		line-height: 1.5 !important;
+	}
+	#page-header .ph-caption-subtitle {
+		font-size: 13px !important;
+	}
+}
+@media (max-width: 480px) {
+	.tt-heading-title a[href^="mailto:"] {
+		font-size: 19px !important;
+	}
+}
+
+/* 2. About Page Header Mobile Optimization (No text/face overlap) */
+@media (max-width: 1024px) {
+	#page-header.ph-full:not(.ph-bg-image) .ph-image {
+		width: clamp(220px, 32vw, 340px) !important;
+		right: 4vw !important;
+		opacity: 0.8 !important;
+	}
+}
+@media (max-width: 768px) {
+	#page-header.ph-full:not(.ph-bg-image) {
+		min-height: 100vh !important;
+		display: flex !important;
+		align-items: center !important;
+	}
+	#page-header.ph-full:not(.ph-bg-image) .ph-image {
+		position: absolute !important;
+		top: auto !important;
+		bottom: 12% !important;
+		right: 3% !important;
+		width: clamp(140px, 38vw, 210px) !important;
+		transform: none !important;
+		opacity: 0.4 !important;
+		z-index: 1 !important;
+		pointer-events: none !important;
+	}
+	#page-header.ph-full:not(.ph-bg-image) .ph-caption {
+		position: relative !important;
+		z-index: 3 !important;
+		max-width: 88% !important;
+	}
+	#page-header.ph-cap-lg .ph-caption-title {
+		font-size: clamp(34px, 10vw, 56px) !important;
+	}
+	/* Footer bottom padding on mobile so back-to-top never overlaps copyright */
+	#tt-footer {
+		padding-bottom: 75px !important;
+	}
+}
+
+/* 3. Work Page (Portfolio Split) Mobile Optimization */
+@media (max-width: 1024px) {
+	.portfolio-split-list {
+		left: 0 !important;
+		width: 100% !important;
+		padding-top: 110px !important;
+		padding-bottom: 80px !important;
+		padding-left: 6% !important;
+		padding-right: 6% !important;
+		min-height: 80vh !important;
+	}
+	.pspl-item-title,
+	.pspl-item-hover-title {
+		font-size: clamp(24px, 5.5vw, 38px) !important;
+	}
+	.portfolio-split-images::before {
+		background-color: #0b0b0b !important;
+		opacity: 0.75 !important;
+	}
+}
+@media (max-width: 768px) {
+	.portfolio-split-list {
+		padding-top: 90px !important;
+		padding-bottom: 70px !important;
+	}
+	.pspl-item-title-link {
+		min-width: 175px !important;
+		padding-top: 30px !important;
+		padding-bottom: 22px !important;
+	}
+	.pspl-item-category-wrap {
+		white-space: nowrap !important;
+		overflow: hidden !important;
+		text-overflow: ellipsis !important;
+		max-width: 82% !important;
+		font-size: 11.5px !important;
+	}
+	.pspl-item-category {
+		font-size: 11.5px !important;
+		letter-spacing: 0.05em !important;
+		text-transform: uppercase !important;
+		color: #d9fd17 !important;
+		line-height: 1 !important;
+	}
+	.pspl-item-title,
+	.pspl-item-hover-title {
+		font-size: clamp(20px, 5.8vw, 28px) !important;
+	}
+	.pspl-item-title-link::before {
+		font-size: 11px !important;
+		right: 0 !important;
+		top: 10px !important;
+	}
+	#tt-footer.footer-absolute {
+		position: relative !important;
+		margin-top: 40px !important;
+		padding-bottom: 75px !important;
+	}
+}
+
+
 
 
 
