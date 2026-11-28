@@ -11474,22 +11474,22 @@ body.tt-boxed .tt-wrap .tt-page-nav:not(.tt-pn-center) {
  * ============================================================= */
 .ob-footer-wordmark-wrap {
 	width: 100%;
-	padding: 40px 4% 30px 4%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	padding: 40px 0 20px 0;
+	display: block;
 	box-sizing: border-box;
 	user-select: none;
+	overflow: hidden;
+	line-height: 0;
 }
 .ob-footer-wordmark {
-	max-width: min(1000px, 90vw);
 	width: 100%;
+	max-width: 100%;
 	height: auto;
 	display: block;
-	margin: 0 auto;
+	margin: 0;
 	pointer-events: none;
 	opacity: 0.96;
-	transition: opacity 0.3s ease, transform 0.3s ease;
+	transition: opacity 0.3s ease;
 }
 .ob-footer.no-social .tt-footer-inner {
 	justify-content: center !important;
@@ -11503,10 +11503,7 @@ body.tt-boxed .tt-wrap .tt-page-nav:not(.tt-pn-center) {
 }
 @media (max-width: 768px) {
 	.ob-footer-wordmark-wrap {
-		padding: 25px 4% 20px 4%;
-	}
-	.ob-footer-wordmark {
-		max-width: min(600px, 94vw);
+		padding: 25px 0 15px 0;
 	}
 }
 
