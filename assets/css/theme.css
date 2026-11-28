@@ -2134,15 +2134,17 @@ body:not(.tt-boxed) .page-header-inner,
 ======================= */
 .ph-caption {
 	position: relative;
+}
+#page-header.ph-bg-image .ph-caption {
 	transform: translateY(-80px);
 }
 @media (max-width: 1024px) {
-	.ph-caption {
+	#page-header.ph-bg-image .ph-caption {
 		transform: translateY(-40px);
 	}
 }
 @media (max-width: 768px) {
-	.ph-caption {
+	#page-header.ph-bg-image .ph-caption {
 		transform: translateY(-25px);
 	}
 }
@@ -2943,7 +2945,7 @@ body.ph-full-on #page-header .page-header-inner {
 	margin-bottom: auto !important;
 }
 
-#page-header.ph-full .ph-image {
+#page-header.ph-full.ph-bg-image .ph-image {
 	position: absolute !important;
 	display: flex !important;
 	align-items: center !important;
@@ -2954,6 +2956,24 @@ body.ph-full-on #page-header .page-header-inner {
 	width: 100% !important;
 	height: 100% !important;
 }
+
+#page-header.ph-full:not(.ph-bg-image) .ph-image {
+	position: absolute !important;
+	top: 50% !important;
+	right: 10vw !important;
+	bottom: auto !important;
+	left: auto !important;
+	transform: translateY(-50%) !important;
+	width: clamp(300px, 24vw, 480px) !important;
+	height: auto !important;
+	z-index: 1 !important;
+}
+
+#page-header.ph-full:not(.ph-bg-image) .page-header-inner {
+	position: relative !important;
+	z-index: 2 !important;
+}
+
 
 #page-header.ph-full:not(.ph-bg-image).ph-image-cropped .ph-image-inner {
 	padding-bottom: 140%;
@@ -11408,5 +11428,47 @@ p a:hover,
 .tt-contact-info .tt-ci-icon {
 	color: #d9fd17 !important;
 }
+
+/* ============================================================= *
+ * Contact Page Header & Watermark Styling
+ * ============================================================= */
+#page-header.ph-full:not(.ph-bg-image) .ph-caption-title-ghost {
+	opacity: 0.16 !important;
+}
+
+/* ============================================================= *
+ * Far-Left Alignment for Bottom Page Navigation ("Let's talk", "Portfolio")
+ * ============================================================= */
+.tt-page-nav:not(.tt-pn-center),
+body.tt-boxed .tt-wrap .tt-page-nav:not(.tt-pn-center) {
+	text-align: left !important;
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+}
+.tt-page-nav:not(.tt-pn-center) .tt-pn-link {
+	justify-content: flex-start !important;
+	text-align: left !important;
+	margin-left: 0 !important;
+}
+.tt-page-nav:not(.tt-pn-center) .tt-pn-subtitle {
+	text-align: left !important;
+	margin-left: 0 !important;
+}
+@media (max-width: 1024px) {
+	.tt-page-nav:not(.tt-pn-center),
+	body.tt-boxed .tt-wrap .tt-page-nav:not(.tt-pn-center) {
+		text-align: left !important;
+		padding-left: 0 !important;
+	}
+	.tt-page-nav:not(.tt-pn-center) .tt-pn-link {
+		justify-content: flex-start !important;
+		text-align: left !important;
+	}
+	.tt-page-nav:not(.tt-pn-center) .tt-pn-subtitle {
+		text-align: left !important;
+	}
+}
+
+
 
 
