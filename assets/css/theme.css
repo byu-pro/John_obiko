@@ -11397,35 +11397,59 @@ p a:hover,
 }
 
 /* ============================================================= *
- * Far-Left Alignment for Bottom Page Navigation ("Let's talk", "Portfolio")
+ * Bottom Page Navigation ("Let's talk", "Portfolio")
+ * Far-left on desktop, center-aligned on mobile
  * ============================================================= */
-.tt-page-nav:not(.tt-pn-center),
-body.tt-boxed .tt-wrap .tt-page-nav:not(.tt-pn-center) {
-	text-align: left !important;
-	padding-left: 0 !important;
-	margin-left: 0 !important;
-}
-.tt-page-nav:not(.tt-pn-center) .tt-pn-link {
-	justify-content: flex-start !important;
-	text-align: left !important;
-	margin-left: 0 !important;
-}
-.tt-page-nav:not(.tt-pn-center) .tt-pn-subtitle {
-	text-align: left !important;
-	margin-left: 0 !important;
-}
-@media (max-width: 1024px) {
+@media (min-width: 1025px) {
 	.tt-page-nav:not(.tt-pn-center),
 	body.tt-boxed .tt-wrap .tt-page-nav:not(.tt-pn-center) {
 		text-align: left !important;
 		padding-left: 0 !important;
+		margin-left: 0 !important;
 	}
 	.tt-page-nav:not(.tt-pn-center) .tt-pn-link {
 		justify-content: flex-start !important;
 		text-align: left !important;
+		margin-left: 0 !important;
 	}
 	.tt-page-nav:not(.tt-pn-center) .tt-pn-subtitle {
 		text-align: left !important;
+		margin-left: 0 !important;
+	}
+}
+
+@media (max-width: 1024px) {
+	.tt-page-nav,
+	.tt-page-nav:not(.tt-pn-center),
+	body.tt-boxed .tt-wrap .tt-page-nav {
+		text-align: center !important;
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: center !important;
+		justify-content: center !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	.tt-page-nav .tt-pn-link,
+	.tt-page-nav:not(.tt-pn-center) .tt-pn-link {
+		justify-content: center !important;
+		text-align: center !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+		display: inline-flex !important;
+	}
+	.tt-page-nav .tt-pn-title,
+	.tt-page-nav:not(.tt-pn-center) .tt-pn-title {
+		text-align: center !important;
+	}
+	.tt-page-nav .tt-pn-subtitle,
+	.tt-page-nav:not(.tt-pn-center) .tt-pn-subtitle {
+		text-align: center !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+		width: 100% !important;
 	}
 }
 
