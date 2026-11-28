@@ -11254,3 +11254,159 @@ input[type="button"]:hover,
 .btn:hover {
 	border-color: #d9fd17 !important;
 }
+
+/* ============================================================= *
+ * Extended Lime Green (#d9fd17) Accents for Pages & Footers
+ * ============================================================= */
+
+/* Pulse dot used across page headers and subheads */
+.ob-pulse-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #d9fd17;
+	display: inline-block;
+	box-shadow: 0 0 10px #d9fd17;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+/* Magic Cursor brand accents */
+#ball {
+	border-color: #d9fd17 !important;
+}
+#ball.ball-view {
+	background-color: #d9fd17 !important;
+	color: #0b0b0b !important;
+}
+
+/* Page header subtitles with accent class */
+.ph-caption-subtitle.text-main,
+.ph-caption-subtitle.ob-lime-accent {
+	color: #d9fd17 !important;
+}
+
+/* Text links hover */
+p a:hover,
+.text-xxlg a:hover,
+.tt-link:hover,
+.tt-contact-info a:hover {
+	color: #d9fd17 !important;
+}
+
+/* Portfolio split titles, counters & categories in work.html */
+.pspl-item-title-link::before {
+	color: #d9fd17 !important;
+	opacity: 0.8 !important;
+	font-weight: 600 !important;
+}
+.pspl-item-category {
+	color: #d9fd17 !important;
+	opacity: 0.9 !important;
+	font-weight: 500 !important;
+}
+.pspl-item-title-link:hover .pspl-item-hover-title {
+	color: #d9fd17 !important;
+}
+.pspl-item-title-link:hover .pspl-item-category {
+	color: #d9fd17 !important;
+}
+.pspl-item-title-link:hover::before {
+	color: #d9fd17 !important;
+	opacity: 1 !important;
+}
+.pspl-ghost {
+	-webkit-text-stroke: 1px rgba(217, 253, 23, 0.18) !important;
+}
+
+/* Bottom page navigation */
+.tt-page-nav .tt-pn-link:hover .tt-pn-hover-title,
+.tt-page-nav .tt-pn-link:hover .tt-pn-title {
+	color: #d9fd17 !important;
+}
+.tt-page-nav .tt-pn-subtitle {
+	color: #d9fd17 !important;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+/* Floating back-to-top circular button */
+.tt-scroll-to-top .tt-st-circle {
+	border-color: rgba(217, 253, 23, 0.5) !important;
+	box-shadow: 0 0 16px rgba(217, 253, 23, 0.22);
+}
+.tt-scroll-to-top .tt-st-circle i {
+	color: #d9fd17 !important;
+}
+.tt-scroll-to-top .tt-st-circle:hover {
+	background-color: #d9fd17 !important;
+	border-color: #d9fd17 !important;
+	color: #0b0b0b !important;
+	box-shadow: 0 0 25px rgba(217, 253, 23, 0.6);
+}
+.tt-scroll-to-top .tt-st-circle:hover i {
+	color: #0b0b0b !important;
+}
+
+/* Unified Custom Footer for Work, About, Contact (Level with Back to Top) */
+.ob-footer {
+	position: relative;
+	width: 100%;
+	padding-top: 25px;
+	padding-bottom: 35px; /* Aligns bottom with bottom: 35px of .tt-scroll-to-top */
+	margin-top: 40px;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+#tt-footer.footer-absolute.ob-footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	padding-top: 0;
+	padding-bottom: 35px;
+	margin-top: 0;
+	border-top: none;
+	pointer-events: none;
+}
+#tt-footer.footer-absolute.ob-footer a,
+#tt-footer.footer-absolute.ob-footer .footer-social {
+	pointer-events: auto;
+}
+.ob-footer .tt-footer-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 50px; /* Exact same 50px height as the circular back-to-top button */
+	padding-left: calc(4% + 65px); /* Leaves clear room for floating circle at left: 4% */
+	padding-right: 4%;
+}
+.ob-footer-copyright {
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: #777777;
+}
+.ob-footer .footer-social .footer-social-text:hover,
+.ob-footer .footer-social:hover .footer-social-text {
+	color: #d9fd17 !important;
+}
+.social-buttons > ul > li a:hover,
+.social-buttons > ul > li a:hover i,
+.social-buttons > ul > li a:hover .fab,
+.social-buttons > ul > li a:hover .fas {
+	color: #d9fd17 !important;
+}
+
+/* Overlay menu social links hover */
+.tt-ol-menu-social li a:hover {
+	color: #d9fd17 !important;
+}
+
+/* Contact info highlights */
+.tt-contact-info .tt-ci-icon {
+	color: #d9fd17 !important;
+}
+
+
